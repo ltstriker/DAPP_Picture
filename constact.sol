@@ -34,16 +34,18 @@ contract Node{
 
 contract manager{
     // address master;
-    
+    uint count;
     Node public head;
     
     function manager(byte[] img) public{
         head = new Node(img);
         // master = sender;
+        count = 0;
     }
     
     function getImage(uint index)public constant returns(byte[500] res){
         Node temp = head;
+        index = count - index;
         for(uint c1=0;c1<index;c1++)
             temp = temp.getNext();
         return temp.getImage();
@@ -53,6 +55,7 @@ contract manager{
         Node temp = Node(msg.sender);
         temp.setNext(head);
         head = temp;
+        count+=1;
     }
 }
 
